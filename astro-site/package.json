@@ -1,0 +1,26 @@
+{
+  "name": "@example/basics",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "devDependencies": {
+    "@astrojs/mdx": "^0.10.1",
+    "@astrojs/tailwind": "^1.0.0",
+    "@astrojs/vercel": "^1.0.1",
+    "astro": "^1.0.8",
+    "prettier": "^2.7.1",
+    "prettier-plugin-astro": "^0.5.3"
+  },
+  "dependencies": {
+    "@astrojs/react": "^1.0.0",
+    "@fontsource/baloo-2": "^4.5.9",
+    "@fontsource/courgette": "^4.5.8",
+    "@fontsource/nunito": "^4.5.10"
+  }
+}

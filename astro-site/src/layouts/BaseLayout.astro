@@ -1,0 +1,12 @@
+---
+const { title } = Astro.props;
+import '../base.css'
+---
+<html>
+  <head>
+    <title>{title}</title>
+  </head>
+  <body class='font-["Comfortaa"] text-lg text-center bg-slate-800 text-slate-200 flex items-center flex-col'>
+    <slot />
+  </body>
+</html>
