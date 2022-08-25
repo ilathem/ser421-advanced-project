@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import YoutubeEmbed from "../components/YoutubeEmbed";
+import {Content as Tutorial} from '../components/tutorial.mdx';
 ---
 <BaseLayout title='Writeup'>
   <h1 class='text-6xl m-10'>Writeup</h1>
@@ -16,12 +17,13 @@ import YoutubeEmbed from "../components/YoutubeEmbed";
   </section>
   <section class='m-5 bg-slate-900 w-3/4 rounded-xl shadow-lg p-3'>
     <h2 class='text-2xl text-slate-400' id="learning_outcomes">Learning Outcomes</h2>
-  </section>
-  <section class='m-5 bg-slate-900 w-3/4 rounded-xl shadow-lg p-3'>
-    <h2 class='text-2xl text-slate-400' id="tutorial">Tutorial</h2>
-    <h3 class='text-slate-400 text-xl'><a href="https://github.com/ilathem/ser421-advanced-project" target="_blank">Demo</a></h3>
-    <h3 class='text-slate-400 text-xl'>Video Walkthrough</h3>
+    <h3 class='text-slate-400 text-xl hover:text-slate-50'><a href="https://github.com/ilathem/ser421-advanced-project" target="_blank">Demo</a></h3>
+    <h3 class='text-slate-400 text-xl'>Video Walkthrough of Demo</h3>
     <YoutubeEmbed client:load embedId='dQw4w9WgXcQ'/>
+  </section>
+  <section class='m-5 bg-slate-900 w-3/4 rounded-xl shadow-lg p-3 '>
+    <h2 class='text-2xl text-slate-400' id="tutorial">Tutorial</h2>
+    <Tutorial/>
   </section>
   <section class='m-5 bg-slate-900 w-3/4 rounded-xl shadow-lg p-3'>
     <h2 class='text-2xl text-slate-400' id="history">History</h2>
