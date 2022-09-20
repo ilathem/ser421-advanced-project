@@ -11,11 +11,15 @@
   },
   "devDependencies": {
     "@astrojs/mdx": "^0.10.1",
+    "@astrojs/svelte": "^1.0.0",
     "@astrojs/tailwind": "^1.0.0",
     "@astrojs/vercel": "^1.0.1",
+    "@astrojs/vue": "^1.0.2",
     "astro": "^1.0.8",
     "prettier": "^2.7.1",
-    "prettier-plugin-astro": "^0.5.3"
+    "prettier-plugin-astro": "^0.5.3",
+    "svelte": "^3.50.1",
+    "vue": "^3.2.39"
   },
   "dependencies": {
     "@astrojs/react": "^1.0.0",
