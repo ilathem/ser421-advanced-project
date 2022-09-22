@@ -2,11 +2,9 @@ import react, { useState, useEffect } from 'react';
 import './todo.css'
 
 export default function ReactDemo() {
-
-  
-  // state for storing array of all todo items
-  const [todos, setTodos] = useState([]);
-  // state for storing current todo item
+  // user state
+  const [user, setUser] = useState('')
+  // state for storing current edited todo item
   const [currentTodoTitle, setCurrentTodoTitle] = useState('')
   const [currentTodoDate, setCurrentTodoDate] = useState('')
   const [currentTodoPercent, setCurrentTodoPercent] = useState('')
@@ -17,8 +15,14 @@ export default function ReactDemo() {
       setTodos(JSON.parse(window.localStorage.getItem("todos")))
   }, [])
 
-  // when state changes, update the localstorage and todo array
-  
+  // when current todo item changes, update array
+  useEffect(() => {
+    console.log("current todo has changed!")
+    // update localstorage
+  }, [currentTodoDate, currentTodoTitle, currentTodoPercent])
+
+
+
 
 
   // Enter a new task
@@ -245,7 +249,7 @@ export default function ReactDemo() {
     <>
       <body>
         <h1 style={{textAlign:"center"}}>To-Do! Application</h1>
-        <div style={{textAlign:"center"}}>A demonstration of four Javascript client-side frameworks. This is Svelte.</div>
+        <div style={{textAlign:"center"}}>A demonstration of four Javascript client-side frameworks. This is React.</div>
         <br/>
         <button id="newtask" class="newtask" value="2" onClick={newTask}>New Task</button>
         <br/><br/><br/>
