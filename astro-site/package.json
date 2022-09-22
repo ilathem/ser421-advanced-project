@@ -20,7 +20,6 @@
     "@angular/language-service": "^14.2.3",
     "@angular/platform-browser": "^14.2.3",
     "@angular/platform-browser-dynamic": "^14.2.3",
-    "@angular/platform-server": "^14.2.3",
     "@astrojs/mdx": "^0.10.1",
     "@astrojs/svelte": "^1.0.0",
     "@astrojs/tailwind": "^1.0.0",
