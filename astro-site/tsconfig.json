@@ -15,5 +15,12 @@
     "strict": true,
     // Error when a value import is only used as a type.
     "importsNotUsedAsValues": "error"
+  },
+    // Default options from analogjs.org - maintiners of angular-astro package
+  "angularCompilerOptions": {
+  "enableI18nLegacyMessageIdFormat": false,
+  "strictInjectionParameters": true,
+  "strictInputAccessModifiers": true,
+  "strictTemplates": true
   }
 }
