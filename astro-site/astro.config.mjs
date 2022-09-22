@@ -4,8 +4,8 @@ import mdx from "@astrojs/mdx";
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel/serverless';
 import vue from "@astrojs/vue";
-
 import svelte from "@astrojs/svelte";
+import analogjsAngular from "@analogjs/astro-angular";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,7 +13,7 @@ export default defineConfig({
     config: {
       applyBaseStyles: false
     }
-  }), mdx(), react(), vue(), svelte()],
+  }), mdx(), react(), vue(), svelte(),  analogjsAngular()],
   output: 'server',
   adapter: vercel()
 });
