@@ -10,6 +10,17 @@
     "astro": "astro"
   },
   "devDependencies": {
+    "@analogjs/astro-angular": "^0.1.0-beta.2",
+    "@angular-devkit/build-angular": "^14.2.3",
+    "@angular/animations": "^14.2.3",
+    "@angular/common": "^14.2.3",
+    "@angular/compiler": "^14.2.3",
+    "@angular/compiler-cli": "^14.2.3",
+    "@angular/core": "^14.2.3",
+    "@angular/language-service": "^14.2.3",
+    "@angular/platform-browser": "^14.2.3",
+    "@angular/platform-browser-dynamic": "^14.2.3",
+    "@angular/platform-server": "^14.2.3",
     "@astrojs/mdx": "^0.10.1",
     "@astrojs/svelte": "^1.0.0",
     "@astrojs/tailwind": "^1.0.0",
@@ -18,8 +29,11 @@
     "astro": "^1.0.8",
     "prettier": "^2.7.1",
     "prettier-plugin-astro": "^0.5.3",
+    "rxjs": "^7.5.6",
     "svelte": "^3.50.1",
-    "vue": "^3.2.39"
+    "tslib": "^2.4.0",
+    "vue": "^3.2.39",
+    "zone.js": "^0.11.8"
   },
   "dependencies": {
     "@astrojs/react": "^1.0.0",
