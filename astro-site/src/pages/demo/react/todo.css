@@ -49,3 +49,15 @@ transform: translateX(-50%);
 .newtask:focus {
 background-color: #F082AC;
 }
+
+.progress-1 {
+  background-color: #FFCCCB;
+}
+
+.progress-2 {
+  background-color: #FFFFE0;
+}
+
+.progress-3 {
+  background-color: #90EE90;
+}
