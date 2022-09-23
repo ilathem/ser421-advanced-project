@@ -367,6 +367,7 @@
     <body>
         <h1 style="text-align:center;">To-Do! Application</h1>
         <div style="text-align:center;">A demonstration of four Javascript client-side frameworks. This is Svelte.</div>
+        <div style="text-align:center;">You can edit a previously entered field by clicking on it.</div>
         <br>
         <button id="newtask" class="newtask" value="2" on:click={newTask}>New Task</button>
         <br><br><br>
