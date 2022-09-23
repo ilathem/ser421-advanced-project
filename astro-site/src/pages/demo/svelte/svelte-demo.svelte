@@ -3,12 +3,19 @@
 
 <!-- Javascript Scripting -->
 <script lang="js">
+    import {onMount} from 'svelte';
+
     var row = 2;
     var name = "";
 
     // Enter a new task
     function newTask() {
-        var r = document.getElementById("newtask").value;
+        var r = parseInt(document.getElementById("newtask").value);
+
+        if(r > 8) {
+            alert("The task list is full.");
+            return;
+        }
 
         var taskCell = document.getElementById("r" + r + "c1");
         var dateCell = document.getElementById("r" + r + "c2");
@@ -22,11 +29,8 @@
         var date = prompt("Please enter a future due date in the format 'MM/DD/YYYY'.", "");
         var today = getCurrentDate();
 
-        /* console.log("Date: " + date);
-        console.log("Today: " + today); */
-
         var comp = compareDates(date, today);
-        console.log("Comp: " + comp);
+
         while(!checkIfDate(date) || !comp) {
             date = prompt("Please enter a future due date in the format 'MM/DD/YYYY'.", "");
             comp = compareDates(date, today);
@@ -40,7 +44,10 @@
         taskCell.innerHTML = task;
         dateCell.innerHTML = date;
         progressCell.innerHTML = progress + "%";
+        progressCell.value = progress;
         colorCode(parseInt(r), progress);
+
+        storeData();
 
         r = parseInt(r) + 1;
         document.getElementById("newtask").value = r;
@@ -105,32 +112,23 @@
         today = month + "/" + day + "/" + year;
 
         return today;
-        console.log("Today: " + today);
     }
 
-    // Compare dates - needs work
+    // Compare dates
     function compareDates(x, y) {
         var entYear = parseInt(x.substring(6));
         var entMonth = parseInt(x.substring(0));
         var entDay = parseInt(x.substring(3));
-        
-        /* console.log(entYear);
-        console.log(entMonth);
-        console.log(entDay); */
 
         var currYear = parseInt(y.substring(6));
         var currMonth = parseInt(y.substring(0));
         var currDay = parseInt(y.substring(3));
 
-        /* console.log(currYear);
-        console.log(currMonth);
-        console.log(currDay); */
-
         if(entYear < currYear) {
             return false;
         } else if(entMonth < currMonth && entYear === currYear) {
             return false;
-        } else if(entDay < currDay && entMonth === currMonth && entYear === currYear) {
+        } else if(entDay <= currDay && entMonth === currMonth && entYear === currYear) {
             return false;
         } else {
             return true;
@@ -220,6 +218,148 @@
             percentCell.style.backgroundColor = "#90EE90";
         }
     }
+
+    // Color code at loading
+    function colorCodeOnLoad() {
+        var i = 2;
+
+        while(document.getElementById("r" + i + "c3").innerHTML != "") {
+            var j = document.getElementById("r" + i + "c3").value;
+
+            colorCode(i, j);
+
+            i += 1;
+
+            if(i === 9) {
+                break;
+            }
+        }
+    }
+
+    // Ask for name at load, check for local storage
+    function getName() {
+        var userName = prompt("Hello! Please enter your name.", "");
+        sessionStorage.setItem("name", userName);
+
+        if(localStorage.getItem(userName + "tasks") != null) {
+            var tasks = localStorage.getItem(userName + "tasks");
+            var dates = localStorage.getItem(userName + "dates");
+            var percents = localStorage.getItem(userName + "percents");
+            var colors = localStorage.getItem(userName + "colors");
+
+            var tasksArray = tasks.split("@");
+            var datesArray = dates.split("@");
+            var percentsArray = percents.split("@");
+            var colorsArray = colors.split("@");
+
+            for(var i = 0; i < tasksArray.length - 1; i++) {
+                var j = i + 2;
+                var cell = document.getElementById("r" + j + "c1");
+                if(tasksArray[i] != null) {
+                    if(i > 0) {
+                        tasksArray[i] = tasksArray[i].substring(1);
+                    }
+                    cell.innerHTML = tasksArray[i];
+                }
+            }
+
+            for(var i = 0; i < datesArray.length - 1; i++) {
+                var j = i + 2;
+                var cell = document.getElementById("r" + j + "c2");
+                if(datesArray[i] != null) { 
+                    if(i > 0) {
+                        datesArray[i] = datesArray[i].substring(1);
+                    }
+                    cell.innerHTML = datesArray[i];
+                }
+            }
+
+            for(var i = 0; i < percentsArray.length - 1; i++) {
+                var j = i + 2;
+                var cell = document.getElementById("r" + j + "c3");
+                if(percentsArray[i] != null) {
+                    if(i > 0) {
+                        percentsArray[i] = percentsArray[i].substring(1);
+                    }
+                    cell.innerHTML = percentsArray[i];
+                }
+            }
+
+            for(var i = 0; i < colorsArray.length - 1; i++) {
+                var j = i + 2;
+                var cell = document.getElementById("r" + j + "c3");
+                if(colorsArray[i] != null) {
+                    if(i > 0) {
+                        colorsArray[i] = colorsArray[i].substring(1);
+                    }
+                    cell.value = colorsArray[i];
+                }
+            }
+
+            var i = 2;
+
+            while(document.getElementById("r" + i + "c1").innerHTML != "") {
+                i += 1;
+
+                if(i === 9) {
+                    break;
+                }
+            }
+
+            document.getElementById("newtask").value = i;
+
+        } else {
+            document.getElementById("newtask").value = 2;
+        }
+
+        colorCodeOnLoad();
+    }
+
+    // Store user task data
+    function storeData() {
+        var name = sessionStorage.getItem("name");
+
+        var tasks = [];
+        var dates = [];
+        var percents = [];
+        var colors = [];
+
+        var i = 2;
+        var j;
+        var k;
+
+        while(i < 9) {
+            while(document.getElementById("r" + i + "c1").innerHTML != "") {
+                i += 1;
+
+                if(i === 9) {
+                    break;
+                }
+            }
+        }
+
+        j = i - 2;
+        i = 0;
+
+        for(i; i < j; i++) {
+            k = i + 2;
+            tasks[i] = document.getElementById("r" + k + "c1").innerHTML + "@";
+            dates[i] = document.getElementById("r" + k + "c2").innerHTML + "@";
+            percents[i] = document.getElementById("r" + k + "c3").innerHTML + "@";
+            colors[i] = document.getElementById("r" + k + "c3").value + "@";
+        }
+
+        localStorage.setItem(name + "tasks", tasks);
+        localStorage.setItem(name + "dates", dates);
+        localStorage.setItem(name + "percents", percents);
+        localStorage.setItem(name + "colors", colors);
+    }
+
+    // Run on mount
+    onMount(() => {
+        getName();
+    });
+
 </script>
   
 <!-- HTML Components -->
@@ -370,4 +510,3 @@
     background-color: #F082AC;
     }
 </style>
-
