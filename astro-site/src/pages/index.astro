@@ -1,6 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import YoutubeEmbed from "../components/YoutubeEmbed";
+// add additional learning outcomes to this array
+let learning_outcomes = [
+  "At the conclusion of this tutorial, the learner will be able to compare and contrast different client-side frameworks.",
+  "The learner will be able to be able to infer which method works best in the existing problem space.",
+  "The learner will be able to create a basic single page application in React, Angular, Svelte, and Vue.",
+  "The learner will be able to employ various rendering strategies.",
+]
+import {Content as ReactTut} from '../components/react.md'
 ---
 <BaseLayout title='Writeup'>
   <h1 class='text-6xl m-10'>Writeup</h1>
@@ -33,12 +40,12 @@ import YoutubeEmbed from "../components/YoutubeEmbed";
       <li class="text-slate-300 hover:text-slate-50 p-1"><a href="#references">References</a></li>
     </ul>
   </section>
-  <section class='m-5 bg-slate-900/50 lg:w-11/12 w-full rounded-xl shadow-2xl shadow-slate-900 p-3'>
+  <section class='m-5 bg-slate-900/50 lg:w-2/3 w-full rounded-xl shadow-2xl shadow-slate-900 p-3'>
     <h2 class='text-3xl text-slate-400' id="learning_outcomes">Learning Outcomes</h2>
+    {learning_outcomes.map(lo => <p class="m-2">{lo}</p>)}
     <h3 class='text-slate-400 text-xl hover:text-slate-50'><a href="https://github.com/ilathem/ser421-advanced-project" target="_blank">Repository</a></h3>
     <h3 class='text-slate-400 text-xl hover:text-slate-50'><a href="/demo">Demo</a></h3>
     <h3 class='text-slate-400 text-xl'>Video Walkthrough of Demo</h3>
-    <!-- <YoutubeEmbed client:load embedId='dQw4w9WgXcQ'/> -->
   </section>
   <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 p-2 flex flex-col items-center'>
     <h2 class='text-3xl text-slate-400 m-4' id="tutorial">Tutorial</h2>
@@ -59,6 +66,9 @@ import YoutubeEmbed from "../components/YoutubeEmbed";
     </ol>
     <p class="m-1">On success, you'll see a message: <span class='text-orange-500'>Good luck out there, astronaut</span></p>
     <iframe width="480" height="270" src="https://www.youtube.com/embed/5oUPzqPQHIg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+    <br />
+    <h3 class='text-lg text-slate-400'>2. React Tutorial</h3>
+    <ReactTut class="list-decimal list-inside "/>
   </section>
   <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 p-2'>
     <h2 class='text-3xl text-slate-400' id="history">History of Client-Side Frameworks</h2>
