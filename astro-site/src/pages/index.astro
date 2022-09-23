@@ -1,6 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import YoutubeEmbed from "../components/YoutubeEmbed";
+// add additional learning outcomes to this array
+let learning_outcomes = [
+  "At the conclusion of this tutorial, the learner will be able to compare and contrast different client-side frameworks.",
+  "The learner will be able to be able to infer which method works best in the existing problem space.",
+  "The learner will be able to create a basic single page application in React, Angular, Svelte, and Vue.",
+  "The learner will be able to employ various rendering strategies.",
+]
+import {Content as Tutorial} from '../components/Tutorial.mdx'
+import {Content as History} from '../components/History.mdx'
+import {Content as Analysis} from '../components/Analysis.mdx'
+import {Content as References} from '../components/References.mdx'
 ---
 <BaseLayout title='Writeup'>
   <h1 class='text-6xl m-10'>Writeup</h1>
@@ -33,12 +43,12 @@ import YoutubeEmbed from "../components/YoutubeEmbed";
       <li class="text-slate-300 hover:text-slate-50 p-1"><a href="#references">References</a></li>
     </ul>
   </section>
-  <section class='m-5 bg-slate-900/50 lg:w-11/12 w-full rounded-xl shadow-2xl shadow-slate-900 p-3'>
+  <section class='m-5 bg-slate-900/50 lg:w-2/3 w-full rounded-xl shadow-2xl shadow-slate-900 p-3'>
     <h2 class='text-3xl text-slate-400' id="learning_outcomes">Learning Outcomes</h2>
+    {learning_outcomes.map(lo => <p class="m-2">{lo}</p>)}
     <h3 class='text-slate-400 text-xl hover:text-slate-50'><a href="https://github.com/ilathem/ser421-advanced-project" target="_blank">Repository</a></h3>
     <h3 class='text-slate-400 text-xl hover:text-slate-50'><a href="/demo">Demo</a></h3>
     <h3 class='text-slate-400 text-xl'>Video Walkthrough of Demo</h3>
-    <!-- <YoutubeEmbed client:load embedId='dQw4w9WgXcQ'/> -->
   </section>
   <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 p-2 flex flex-col items-center'>
     <h2 class='text-3xl text-slate-400 m-4' id="tutorial">Tutorial</h2>
@@ -46,7 +56,7 @@ import YoutubeEmbed from "../components/YoutubeEmbed";
     <h3 class='text-lg text-slate-400'>Preamble</h3>
     <p>For this tutorial, we will make multiple versions of the same app through Astro, utilizing various UI frameworks to draw comparisons.</p>
     <br />
-    <h3 class='text-lg text-slate-400'>1. Astro Installation and Setup</h3>
+    <h3 class='text-2xl text-slate-400'>1. Astro Installation and Setup</h3>
     <p class="m-1">Open a terminal in an empty directory and install astro with</p>
     <p class='bg-blue-900 px-2 py-1 m-1 rounded-lg max-w-fit '>npm create astro@latest</p>
     <p class="m-1">This will launch a wizard that will walk you through the project creation process:</p>
@@ -59,20 +69,24 @@ import YoutubeEmbed from "../components/YoutubeEmbed";
     </ol>
     <p class="m-1">On success, you'll see a message: <span class='text-orange-500'>Good luck out there, astronaut</span></p>
     <iframe width="480" height="270" src="https://www.youtube.com/embed/5oUPzqPQHIg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+    <br />
+    <div class="prose prose-lg dark:prose-invert text-center prose-h2:text-slate-400 prose-code:text-orange-500 w-full prose-li:list-inside">
+      <Tutorial />
+    </div>
   </section>
-  <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 p-2'>
-    <h2 class='text-3xl text-slate-400' id="history">History of Client-Side Frameworks</h2>
-    
+  <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 p-2 flex flex-col items-center' id="history">
+    <div class="prose prose-lg dark:prose-invert text-center prose-h2:text-slate-400 prose-code:text-orange-500 w-full border-red-100 prose-li:list-inside">
+      <History />
+    </div>
   </section>
-  <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 p-2'>
-    <h2 class='text-3xl text-slate-400' id="analysis">Analysis</h2>
+  <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 p-2 flex flex-col items-center' id="analysis">
+    <div class="prose prose-xl dark:prose-invert text-center prose-h2:text-slate-400 prose-code:text-orange-500 w-full prose-li:list-inside">
+      <Analysis />
+    </div>
   </section>
-  <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 flex flex-col items-center p-2'>
-    <h2 class='text-3xl text-slate-400' id="references">References</h2>
-    <ol class='list-decimal list-outside text-center m-5 2xl:w-1/3 md:w-1/2 sm:w-2/3 w-3/4'>
-      <li class='m-2 hover:text-white'><a class='hover:underline' href="https://blog.logrocket.com/history-of-frontend-frameworks/" target="_blank">History of Frontend Frameworks</a></li>
-      <li class='m-2 hover:text-white'><a class='hover:underline' href="https://www.youtube.com/watch?v=Kzeog8yTFaE" target="_blank">A Brief History of Frontend Frameworks</a></li>
-      <li class='m-2 hover:text-white'><a class='hover:underline' href="https://www.pzuraq.com/blog/four-eras-of-javascript-framework" target="_blank">Four Eras of Javascript Frameworks</a></li>
-    </ol>
+  <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 flex flex-col items-center p-2' id="references">
+    <div class="prose prose-xl dark:prose-invert text-center prose-h2:text-slate-400 prose-code:text-orange-500 w-full prose-li:list-inside prose-a:no-underline">
+      <References />
+    </div>
   </section>
 </BaseLayout>
