@@ -7,7 +7,7 @@ let learning_outcomes = [
   "The learner will be able to create a basic single page application in React, Angular, Svelte, and Vue.",
   "The learner will be able to employ various rendering strategies.",
 ]
-import {Content as ReactTut} from '../components/react.md'
+import {Content as Tutorial} from '../components/Tutorial.mdx'
 ---
 <BaseLayout title='Writeup'>
   <h1 class='text-6xl m-10'>Writeup</h1>
@@ -53,7 +53,7 @@ import {Content as ReactTut} from '../components/react.md'
     <h3 class='text-lg text-slate-400'>Preamble</h3>
     <p>For this tutorial, we will make multiple versions of the same app through Astro, utilizing various UI frameworks to draw comparisons.</p>
     <br />
-    <h3 class='text-lg text-slate-400'>1. Astro Installation and Setup</h3>
+    <h3 class='text-2xl text-slate-400'>1. Astro Installation and Setup</h3>
     <p class="m-1">Open a terminal in an empty directory and install astro with</p>
     <p class='bg-blue-900 px-2 py-1 m-1 rounded-lg max-w-fit '>npm create astro@latest</p>
     <p class="m-1">This will launch a wizard that will walk you through the project creation process:</p>
@@ -67,8 +67,9 @@ import {Content as ReactTut} from '../components/react.md'
     <p class="m-1">On success, you'll see a message: <span class='text-orange-500'>Good luck out there, astronaut</span></p>
     <iframe width="480" height="270" src="https://www.youtube.com/embed/5oUPzqPQHIg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
     <br />
-    <h3 class='text-lg text-slate-400'>2. React Tutorial</h3>
-    <ReactTut class="list-decimal list-inside "/>
+    <div class="prose dark:prose-invert text-left prose-h2:text-slate-400 prose-code:text-orange-500 w-full">
+      <Tutorial />
+    </div>
   </section>
   <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 p-2'>
     <h2 class='text-3xl text-slate-400' id="history">History of Client-Side Frameworks</h2>
