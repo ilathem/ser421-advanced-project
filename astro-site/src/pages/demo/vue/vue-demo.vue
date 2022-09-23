@@ -28,6 +28,12 @@
 
     editTask(index){
       console.log(index);
+    },
+    editDate(index){
+
+    },
+    editProgress(index){
+
     }
   }
 }
@@ -59,14 +65,15 @@
       </td>
     </tr>
 
-    <tr v-for="(t, index) in tasks" class="itemrow">
+    <tr v-for="(t, index) in tasks" class="itemrow"
+       v-bind:style="t.progress < 33 ? 'background-color:  #FFCCCB;' : t.progress <67 ? 'background-color: #00FFFF;' : 'background-color: #90EE90;'">
       <td  height="50px" width="33.33%" @click="editTask(index)">
         {{ t.task }}
       </td>
-      <td id="date" height="50px" width="33.33%">
+      <td id="date" height="50px" width="33.33%" @click="editDate(index)">
         {{ t.date }}
       </td>
-      <td id="progress" height="50px" width="33.33%">
+      <td id="progress" height="50px" width="33.33%" @click="editProgress(index)">
         {{ t.progress }}
       </td>
     </tr>
