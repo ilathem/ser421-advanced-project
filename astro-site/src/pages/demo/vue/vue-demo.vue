@@ -58,7 +58,7 @@
         let tasks = null;
         this.userName = prompt('Please Enter Your Name to Sign In');
         console.log(this.userName);
-        if (window.localStorage.getItem(this.userName)) {
+        if (window.localStorage.getItem("vue"+this.userName)) {
           console.log(window.localStorage.getItem("vue"+this.userName));
           console.log(JSON.parse(window.localStorage.getItem("vue"+this.userName)));
           this.tasks = (JSON.parse(window.localStorage.getItem("vue"+this.userName)));
@@ -68,6 +68,9 @@
       },
       updateStorage(){
         window.localStorage.setItem("vue"+this.userName, JSON.stringify(this.tasks));
+      },
+      deleteTask(){
+        console.log(index);
       }
     }
   }
@@ -81,11 +84,11 @@
     </p>
   </div>
   <br />
-  <button id="newtask" class="newtask" value="2" @click="createTask">
+  <button id="newtask" class="newtask" @click="createTask">
     New Task
   </button>
   <br /><br /><br />
-
+  
   <table style="width: 100%">
     <tr id="r1" class="toprow">
       <td id="r1c1" height="50px" width="33.33%">
@@ -98,11 +101,10 @@
         <b>Progress</b>
       </td>
     </tr>
-
     <tr v-for="(t, index) in tasks" class="itemrow"
        v-bind:style="t.progress < 33 ? 'background-color:  #FFCCCB;' : t.progress <67 ? 'background-color: #00FFFF;' : 'background-color: #90EE90;'">
-      <td  height="50px" width="33.33%" @click="editTask(index)">
-        {{ t.task }}
+        <td id="task" height="50px" width="33.33%" @click="editTask(index)">   
+          <button className='delete-button' @click="deleteTask(index)">Delete </button>{{ t.task }} 
       </td>
       <td id="date" height="50px" width="33.33%" @click="editDate(index)">
         {{ t.date }}
@@ -169,5 +171,20 @@ td {
 .newtask:hover,
 .newtask:focus {
   background-color: #f082ac;
+}
+.delete-button {
+  position: absolute;
+  left: 1em;
+  background-color: rgb(247, 60, 60);
+  padding: .75em;
+  top: 15%;
+  border: none;
+  outline: none;
+}
+
+.delete-button:hover {
+  cursor: pointer;
+  background-color: red;
+  color: white;
 }
 </style>
