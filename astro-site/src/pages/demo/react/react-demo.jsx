@@ -9,24 +9,24 @@ export default function ReactDemo() {
 
 
   // for dev purposes: comment out when done
-  useEffect(() => {
-    let username = 'test';
-    setTodos(JSON.parse(window.localStorage.getItem(username)));
-    setUser(username);
-  },[])
+  // useEffect(() => {
+  //   let username = 'test';
+  //   setTodos(JSON.parse(window.localStorage.getItem(`${username}-react`)));
+  //   setUser(username);
+  // },[])
   ////////////////////////////////////////////
 
 
   // when array changes, update local storage
   useEffect(() => {
-    window.localStorage.setItem(user, JSON.stringify(todos));
+    window.localStorage.setItem(`${user}-react`, JSON.stringify(todos));
   }, [todos]);
 
   function logIn() {
     let username = prompt('Please enter your name');
     // user is logging in
-    if (window.localStorage.getItem(username)) {
-      setTodos(JSON.parse(window.localStorage.getItem(username)));
+    if (window.localStorage.getItem(`${username}-react`)) {
+      setTodos(JSON.parse(window.localStorage.getItem(`${username}-react`)));
     }
     // new user
     setUser(username);
