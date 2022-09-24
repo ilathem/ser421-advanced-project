@@ -9,31 +9,45 @@
     createTask(){
       console.log("CT");
       let task = "";
-      let date = "";
-      let progress = 0;
-        while(task.length > 15 || task.length < 1) {
-            task = prompt("Please enter a task name of at least one and up to 15 characters.", "");
-          }
-          //var comp = compareDates(date, today);
-        //console.log("Comp: " + comp);
-       // while(!checkIfDate(date) || !comp) {
-            date = prompt("Please enter a future due date in the format 'MM/DD/YYYY'.", "");
-           // comp = compareDates(date, today);
-        //}
-        progress = prompt("Please enter the completion percentage from 0 to 100.", "");
-        let myObj = {"task": task, "date": date, "progress": progress};
-        this.tasks.push(myObj);
+      while(task.length > 15 || task.length < 1 || this.tasks.includes(task)) {
+        task = prompt("Please enter a task name of at least one and up to 15 characters.", "");
+        }
+      let date = prompt("Enter future due date in format <MM/DD/YYYY>");
+      while (!Date.parse(date) || Date.parse(date) < Date.now()) {
+       date = prompt("Invalid date, Please use format <MM/DD/YYYY> in the future");
+      }
+      let progress = prompt("Enter completion percentage, value from 0 to 100");
+      while (progress < 0 || progress > 100) {
+        progress = prompt("Enter a value from 0 to 100");
+      }
+      let myObj = {"task": task, "date": date, "progress": progress};
+      this.tasks.push(myObj);
 
     },
 
     editTask(index){
       console.log(index);
+      let newTask = prompt("Please enter the new task name.")
+      while(newTask.length > 15 || newTask.length < 1 || this.tasks.includes(newTask)) {
+        newTask = prompt("Either that task already exists or is an invalid length. Enter again.", "");
+        }
+      this.tasks[index].task = newTask;  
+
     },
     editDate(index){
+      let newDate = prompt("Enter future due date in format <MM/DD/YYYY>");
+      while (!Date.parse(newDate) || Date.parse(newDate) < Date.now()) {
+       date = prompt("Invalid date, Please use format <MM/DD/YYYY> in the future");
+      }
+      this.tasks[index].date = newDate;
 
     },
     editProgress(index){
-
+      let newProgress = prompt("Enter completion percentage, value from 0 to 100");
+      while (newProgress < 0 || newProgress > 100) {
+        newProgress = prompt("Enter a value from 0 to 100");
+      }
+      this.tasks[index].progress = newProgress; 
     }
   }
 }
