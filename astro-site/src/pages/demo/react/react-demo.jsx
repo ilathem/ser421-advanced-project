@@ -9,8 +9,8 @@ export default function ReactDemo() {
 
   // when array changes, update local storage
   useEffect(() => {
-    window.localStorage.setItem(user, JSON.stringify(todos))
-  }, [todos])
+    window.localStorage.setItem(user, JSON.stringify(todos));
+  }, [todos]);
 
   function logIn() {
     let username = prompt('Please enter your name');
@@ -24,92 +24,103 @@ export default function ReactDemo() {
   }
 
   function addNewTodo(todo) {
-    if (!todos) setTodos(todo) // if first one
+    if (!todos) setTodos(todo); // if first one
     else {
-      let todoArray = [...todos, todo]
+      let todoArray = [...todos, todo];
       // https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property
-      let sortedTodos = todoArray.sort((a,b)=>new Date(a.date).getTime()-new Date(b.date).getTime());
+      let sortedTodos = todoArray.sort(
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+      );
       // console.log({todoArray, sortedTodos})
-      setTodos(sortedTodos)
+      setTodos(sortedTodos);
     }
   }
 
   function newTask() {
-    let title = prompt("Enter the task name")
-    let titlesArray = todos.map(todo => todo.title)
+    let title = prompt('Enter the task name');
+    let titlesArray = todos.map((todo) => todo.title);
     while (titlesArray.includes(title)) {
-      title = prompt("That task already exists! Enter another name")
+      title = prompt('That task already exists! Enter another name');
     }
-    let date = prompt("Enter future due date in format <MM/DD/YYYY>")
+    let date = prompt('Enter future due date in format <MM/DD/YYYY>');
     while (!Date.parse(date) || Date.parse(date) < Date.now()) {
-      date = prompt("Invalid syntax, use format <MM/DD/YYYY> in the future")
+      date = prompt('Invalid syntax, use format <MM/DD/YYYY> in the future');
     }
-    let percent = prompt("Enter completion percentage, value from 0 to 100");
+    let percent = prompt('Enter completion percentage, value from 0 to 100');
     while (percent < 0 || percent > 100) {
-      percent = prompt("Enter a value from 0 to 100")
+      percent = prompt('Enter a value from 0 to 100');
     }
-    addNewTodo({title, date, percent})
+    addNewTodo({ title, date, percent });
   }
 
   function editTask(todoTitle) {
-    let newTitle = prompt("What is the new title?")
-    let titlesArray = todos.map(todo => todo.title)
+    let newTitle = prompt('What is the new title?');
+    let titlesArray = todos.map((todo) => todo.title);
     while (titlesArray.includes(newTitle)) {
-      newTitle = prompt("That name already exists! Enter another name")
+      newTitle = prompt('That name already exists! Enter another name');
     }
-    let updatedArray = todos.map(todo => {
+    let updatedArray = todos.map((todo) => {
       if (todo.title === todoTitle) {
-        return ({
+        return {
           title: newTitle,
           date: todo.date,
-          percent: todo.percent
-        })
+          percent: todo.percent,
+        };
       } else {
-        return todo; 
+        return todo;
       }
-    })
-    setTodos(updatedArray)
+    });
+    setTodos(updatedArray);
     // console.log('running edit task')
   }
 
   function editDate(todoTitle) {
     // console.log("running edit date")
-    let date = prompt("Enter future due date in format <MM/DD/YYYY>")
+    let date = prompt('Enter future due date in format <MM/DD/YYYY>');
     while (!Date.parse(date) || Date.parse(date) < Date.now()) {
-      date = prompt("Invalid syntax, use format <MM/DD/YYYY> in the future")
+      date = prompt('Invalid syntax, use format <MM/DD/YYYY> in the future');
     }
-    let updatedArray = todos.map(todo => {
+    let updatedArray = todos.map((todo) => {
       if (todo.title === todoTitle) {
-        return ({
+        return {
           title: todo.title,
           date: date,
-          percent: todo.percent
-        })
+          percent: todo.percent,
+        };
       } else {
         return todo;
       }
-    })
-    let sortedTodos = updatedArray.sort((a,b)=>new Date(a.date).getTime()-new Date(b.date).getTime());
-    setTodos(sortedTodos)
+    });
+    let sortedTodos = updatedArray.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+    setTodos(sortedTodos);
   }
 
   function editPercent(todoTitle) {
-    let percent = prompt("Enter completion percentage, value from 0 to 100");
+    let percent = prompt('Enter completion percentage, value from 0 to 100');
     while (percent < 0 || percent > 100) {
-      percent = prompt("Enter a value from 0 to 100")
+      percent = prompt('Enter a value from 0 to 100');
     }
-    let updatedArray = todos.map(todo => {
+    let updatedArray = todos.map((todo) => {
       if (todo.title === todoTitle) {
-        return ({
+        return {
           title: todo.title,
           date: todo.date,
-          percent: percent
-        })
+          percent: percent,
+        };
       } else {
-        return todo; 
+        return todo;
       }
-    })
-    setTodos(updatedArray)
+    });
+    setTodos(updatedArray);
+  }
+
+  function deleteTask(todoTitle) {
+    // create new array, which contains all elements of todos
+    // where the title does not equal the supplied title
+    let updatedArray = todos.filter((todo) => todo.title !== todoTitle);
+    setTodos(updatedArray);
   }
 
   return (
@@ -158,7 +169,9 @@ export default function ReactDemo() {
                   </td>
                   <td
                     style={{ height: '50px', width: '33.33%' }}
-                    className={`progress-${todo.percent < 33 ? "1" : todo.percent < 67 ? "2" : "3"}`}
+                    className={`progress-${
+                      todo.percent < 33 ? '1' : todo.percent < 67 ? '2' : '3'
+                    }`}
                     onClick={() => editPercent(todo.title)}
                   >
                     {todo.percent}%
