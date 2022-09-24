@@ -20,7 +20,7 @@ After selecting the project, astro will start copying the project files.
 
 Using your arrow keys, navigate down to `I prefer not to use TypeScript`, then press the enter key to select it.
 ![no ts](/typescript.png)
-Upon successful installation, you'll see `Ready for liftoff!` in green, and a series of instructions to start the development server:
+Upon successful installation, you will see `Ready for liftoff!` in green, and a series of instructions to start the development server:
 ![astro complete](/astro-complete.png)
 
 ## Astro Setup
@@ -37,7 +37,9 @@ Astro will automatically install the dependencies and will change the configurat
 ## Page Setup
 Astro uses what is called `file-based routing`, which means that each file in the `/pages` directory corresponds to a path in the browser. By default, `index.astro` will correspond to the `/` path.
 
-1. First, go back to the pages directory and create a folder for each framework component:
+Note: The terminal commands in this section are executed in Windows Powershell. 
+
+1. First, go to the pages directory and create a folder for each framework component:
 ```
 cd src/pages
 mkdir react
@@ -203,7 +205,7 @@ export default function ReactDemo() {
 ```
 `useState` and `useEffect` are called *hooks*, they provide additional functionality that react provides. `useState` allows us to keep track of component state, and `useEffect` allows us to specify certain functions and cleanup functions every time the state changes, or on component mount and unmount (when it is loaded and unloaded from the screen).
 
-React uses functional components, and each component returns data to render to the screen. The format of the data is called *jsx*, or JavaScript XML. JSX is basically HTML with superpowers, you can also write include JavaScript (in curly braces), and render user-defined components.
+React uses functional components, and each component returns data to render to the screen. The format of the data is called *jsx*, or JavaScript XML. JSX is basically HTML with superpowers, you can also include JavaScript (in curly braces), and render user-defined components.
 
 3. Next, we are going to create the log in / sign up functionality.
 Alter the file so that it looks like this:
@@ -288,7 +290,7 @@ onClick={handleClick}
 ```
 In the example, we are using a ternary operater to determine if the user is logged in or not.
 If the user is logged in, the click handler will be the `newTask` function (not defined yet),
-and if they aren't logged in, the click handler will be the `logIn` function.
+and if they are not logged in, the click handler will be the `logIn` function.
 
 Similarily, if the use is logged in, the button will say `New Task`, but if they are not logged in,
 it will say `Log in / Sign up`
@@ -297,10 +299,10 @@ it will say `Log in / Sign up`
 
 Start by defining what happens when the user clicks `New Task` upon sign up or log in:
 ```js
-// When setup in this manner, useEffect will run the array function provided
+// When setup in this manner, useEffect will run the function provided
 // in the first argument every time the todos array changes.
 useEffect(() => {
-  // when array changes, update local storage by convering the 
+  // when todos array changes, update local storage by convering the 
   // json to a string
   window.localStorage.setItem(`${user}-react`, JSON.stringify(todos));
 }, [todos]);
