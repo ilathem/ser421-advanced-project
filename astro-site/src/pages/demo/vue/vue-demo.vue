@@ -59,15 +59,15 @@
         this.userName = prompt('Please Enter Your Name to Sign In');
         console.log(this.userName);
         if (window.localStorage.getItem(this.userName)) {
-          console.log(window.localStorage.getItem(this.userName));
-          console.log(JSON.parse(window.localStorage.getItem(this.userName)));
-          this.tasks = (JSON.parse(window.localStorage.getItem(this.userName)));
+          console.log(window.localStorage.getItem("vue"+this.userName));
+          console.log(JSON.parse(window.localStorage.getItem("vue"+this.userName)));
+          this.tasks = (JSON.parse(window.localStorage.getItem("vue"+this.userName)));
            
         }
         console.log(this.tasks);
       },
       updateStorage(){
-        window.localStorage.setItem(this.userName, JSON.stringify(this.tasks));
+        window.localStorage.setItem("vue"+this.userName, JSON.stringify(this.tasks));
       }
     }
   }
