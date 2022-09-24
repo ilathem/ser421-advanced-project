@@ -18,26 +18,91 @@ After selecting the project, astro will start copying the project files.
 ![no git repo](/no-git.png)
 6. Since this is a beginner tutorial, we will select `I prefer not to use TypeScript` for the TypeScript option. TypeScript is a subset of JavaScript, it basically adds type safety to JavaScript so that you catch common type errors at compile time instead of runtime. It is usually more useful when there is a large project with teams of developers.
 
+Using your arrow keys, navigate down to `I prefer not to use TypeScript`, then press the enter key to select it.
+![no ts](/typescript.png)
+Upon successful installation, you'll see `Ready for liftoff!` in green, and a series of instructions to start the development server:
+![astro complete](/astro-complete.png)
+
 ## Astro Setup
-1. Install vue, react, and svelte dependencies with the following commands, pressing y on any prompts.
+1. Open a terminal in the `./astro-site` directory, then install vue, react, and svelte dependencies with the following commands, pressing y on any prompts to install dependencies or change the config file.
 ```
 npx astro add react
 npx astro add vue
 npx astro add svelt
 ```
 ![react install](/react-install.png)
+![vue install](/vue-install.png)
+![svelte install](/svelte-install.png)
 Astro will automatically install the dependencies and will change the configuration files for you.
 ## Page Setup
-Next, under the `/pages` directory, create a new 
+Astro uses what is called `file-based routing`, which means that each file in the `/pages` directory corresponds to a path in the browser. By default, `index.astro` will correspond to the `/` path.
+
+1. First, go back to the pages directory and create a folder for each framework component:
+```
+cd src/pages
+mkdir react
+mkdir vue
+mkdir svelte
+```
+2. Inside each folder, create a file called `index.astro`. 
+
+Whenever you navigate to folder, it will route to the index of that folder. For example, going to `/react` will cause astro to render what is inside `/pages/react/index.astro`
+```
+New-item react/index.astro
+New-item vue/index.astro
+New-item svelte/index.astro
+```
+3. In addition to `index.astro`, we will need to create each framework file in their respective directories:
+```
+New-item react/react-demo.jsx
+New-item vue/vue-demo.vue
+New-item svelte/svelte-demo.svelte
+```
+
+4. In each framework `.astro` file, you will need to import the framework component and render it to the screen. 
+
+The `client:load` is called a *directive*, and basically just tells astro to load the javascript as soon as it is rendered to the client.
+
+`/pages/react/index.astro`
+```astro
+---
+import ReactDemo from './react-demo';
+---
+<a href="/demo">Back to /demo</a>
+<ReactDemo client:load />
+```
+
+`/pages/vue/index.astro`
+```astro
+---
+import Vue from './vue-demo.vue'
+---
+<a href="/demo">Back to /demo</a>
+<Vue client:load />
+```
+`pages/svelte/index.astro`
+```astro
+---
+import SvelteDemo from './svelte-demo.svelte'
+---
+<a href="/demo">Back to /demo</a>
+<SvelteDemo client:load />
+```
+
+5. To complete the page setup, paste the following into `/pages/index.astro` to enable navigation between the different framework components.
+```astro
+---
+---
+<a href="/">Back to home</a>
+<h1>Index of demo!</h1>
+<a href="/demo/react">React Demo</a> | 
+<a href="/demo/svelte">Svelte Demo</a> | 
+<a href="/demo/vue">Vue Demo</a>
+```
 
 
 ## React Tutorial
-### Installation
-1. Install react with `npx astro add react`
-2. Press y for any dependencies
-### File Creation
-In order to render a react component within astro, you will need to use an astro file as a wrapper for the react file.
-1. First, create 
+
 
 
 ## Svelte Tutorial
