@@ -7,6 +7,16 @@ export default function ReactDemo() {
   // array of todo items
   const [todos, setTodos] = useState([]);
 
+
+  // for dev purposes: comment out when done
+  useEffect(() => {
+    let username = 'test';
+    setTodos(JSON.parse(window.localStorage.getItem(username)));
+    setUser(username);
+  },[])
+  ////////////////////////////////////////////
+
+
   // when array changes, update local storage
   useEffect(() => {
     window.localStorage.setItem(user, JSON.stringify(todos));
@@ -54,24 +64,32 @@ export default function ReactDemo() {
   }
 
   function editTask(todoTitle) {
-    let newTitle = prompt('What is the new title?');
-    let titlesArray = todos.map((todo) => todo.title);
-    while (titlesArray.includes(newTitle)) {
-      newTitle = prompt('That name already exists! Enter another name');
-    }
-    let updatedArray = todos.map((todo) => {
-      if (todo.title === todoTitle) {
-        return {
-          title: newTitle,
-          date: todo.date,
-          percent: todo.percent,
-        };
-      } else {
-        return todo;
+
+    console.log(event);
+    if (event.target.tagName === 'TD') {
+      console.log("is a td")
+      let newTitle = prompt('What is the new title?');
+      let titlesArray = todos.map((todo) => todo.title);
+      while (titlesArray.includes(newTitle)) {
+        newTitle = prompt('That name already exists! Enter another name');
       }
-    });
-    setTodos(updatedArray);
-    // console.log('running edit task')
+      let updatedArray = todos.map((todo) => {
+        if (todo.title === todoTitle) {
+          return {
+            title: newTitle,
+            date: todo.date,
+            percent: todo.percent,
+          };
+        } else {
+          return todo;
+        }
+      });
+      setTodos(updatedArray);
+      // console.log('running edit task')
+    } else if (event.target.tagName === 'BUTTON') {
+      console.log("is a button")
+      deleteTask(todoTitle)
+    }
   }
 
   function editDate(todoTitle) {
@@ -157,8 +175,10 @@ export default function ReactDemo() {
                 <tr className='itemrow' key={todo.title}>
                   <td
                     style={{ height: '50px', width: '33.33%' }}
+                    className='name-field'
                     onClick={() => editTask(todo.title)}
                   >
+                    <button className='delete-btn' onClick={() => {console.log("clicked delete")}}>Delete</button>
                     {todo.title}
                   </td>
                   <td

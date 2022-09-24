@@ -61,3 +61,23 @@ background-color: #F082AC;
 .progress-3 {
   background-color: #90EE90;
 }
+
+.name-field {
+  position: relative;
+}
+
+.delete-btn {
+  position: absolute;
+  left: 1em;
+  background-color: rgb(247, 60, 60);
+  padding: .75em;
+  top: 15%;
+  border: none;
+  outline: none;
+}
+
+.delete-btn:hover {
+  cursor: pointer;
+  background-color: red;
+  color: white;
+}
