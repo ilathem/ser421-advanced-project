@@ -1,3 +1,47 @@
-## React
+## Astro Install
+For this tutorial, we will be using Astro to simplify the installation of Vue, React, and Svelte.
+
+1. To install astro, open a terminal in any directory and run
+```
+npm create astro@latest
+```
+2. Next, specify the location and name you would like to create the project in. If you would like to create the project in the folder you are currently in, just specify the project name. For this tutorial we will be naming the projet `astro-site`
+![astro-install-project-name](/astro-install-proj-name.png)
+3. After that, astro will ask you which template you would like to use. Templates provide the developer with a starting ground of files to make it easier for them to get started. For this tutorial, we will be selecting `Empty Project` for the template, so that we avoid having to remove any unecessary files.
+
+Using your arrow keys, navigate down to `Empty Project`, then press the enter key to select it.
+![select tempalte](/select-template.png)
+After selecting the project, astro will start copying the project files. 
+4. When astro is done copying the project files, astro will ask if you would like to install npm dependencies. Press `y` to install them
+![install npm dependencies](/npm-dep.png)
+5. Press `n` to avoid initializing a git repository
+![no git repo](/no-git.png)
+6. Since this is a beginner tutorial, we will select `I prefer not to use TypeScript` for the TypeScript option. TypeScript is a subset of JavaScript, it basically adds type safety to JavaScript so that you catch common type errors at compile time instead of runtime. It is usually more useful when there is a large project with teams of developers.
+
+## Astro Setup
+1. Install vue, react, and svelte dependencies with the following commands, pressing y on any prompts.
+```
+npx astro add react
+npx astro add vue
+npx astro add svelt
+```
+![react install](/react-install.png)
+Astro will automatically install the dependencies and will change the configuration files for you.
+## Page Setup
+Next, under the `/pages` directory, create a new 
+
+
+## React Tutorial
+### Installation
 1. Install react with `npx astro add react`
 2. Press y for any dependencies
+### File Creation
+In order to render a react component within astro, you will need to use an astro file as a wrapper for the react file.
+1. First, create 
+
+
+## Svelte Tutorial
+
+## Vue Tutorial
+
+## Angular Tutorial
