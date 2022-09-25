@@ -11,6 +11,7 @@ import {Content as Tutorial} from '../components/Tutorial.mdx'
 import {Content as History} from '../components/History.mdx'
 import {Content as Analysis} from '../components/Analysis.mdx'
 import {Content as References} from '../components/References.mdx'
+import {Content as Resources} from '../components/Resources.mdx'
 ---
 <BaseLayout title='Writeup'>
   <h1 class='text-6xl m-10'>Writeup</h1>
@@ -41,6 +42,7 @@ import {Content as References} from '../components/References.mdx'
       <li class="text-slate-300 hover:text-slate-50 p-1"><a href="#history">History</a></li>
       <li class="text-slate-300 hover:text-slate-50 p-1"><a href="#analysis">Analysis</a></li>
       <li class="text-slate-300 hover:text-slate-50 p-1"><a href="#references">References</a></li>
+      <li class="text-slate-300 hover:text-slate-50 p-1"><a href="#resources">Resources</a></li>
     </ul>
   </section>
   <section class='m-5 bg-slate-900/50 lg:w-2/3 w-full rounded-xl shadow-2xl shadow-slate-900 p-3'>
@@ -69,6 +71,11 @@ import {Content as References} from '../components/References.mdx'
   <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 flex flex-col items-center p-2' id="references">
     <div class="prose prose-xl dark:prose-invert text-center prose-h2:text-slate-400 prose-code:text-orange-500 w-full prose-li:list-inside prose-a:no-underline">
       <References />
+    </div>
+  </section>
+  <section class='m-5 bg-slate-900/50 lg:w-3/4 w-full rounded-xl shadow-2xl shadow-slate-900 flex flex-col items-center p-2' id="resources">
+    <div class="prose prose-xl dark:prose-invert text-center prose-h2:text-slate-400 prose-code:text-orange-500 w-full prose-li:list-inside prose-a:no-underline">
+      <Resources />
     </div>
   </section>
 </BaseLayout>
