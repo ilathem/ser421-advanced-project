@@ -37,6 +37,7 @@ export default function ReactDemo() {
     if (!todos) setTodos(todo); // if first one
     else {
       let todoArray = [...todos, todo];
+      // reference no. 9 : 
       // https://stackoverflow.com/questions/10123953/how-to-sort-an-object-array-by-date-property
       let sortedTodos = todoArray.sort(
         (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
