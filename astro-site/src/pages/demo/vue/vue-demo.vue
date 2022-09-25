@@ -3,7 +3,8 @@
     data() {
       return {
         tasks: [],
-        userName: ""
+        userName: "",
+        delete: false
       }
     },
     mounted(){
@@ -31,12 +32,17 @@
 
       editTask(index){
         console.log(index);
+        if (this.delete){
+          this.deleteTask(index);
+        }
+        else{
         let newTask = prompt("Please enter the new task name.")
         while(newTask.length > 15 || newTask.length < 1 || this.tasks.includes(newTask)) {
           newTask = prompt("Either that task already exists or is an invalid length. Enter again.", "");
           }
         this.tasks[index].task = newTask;  
         this.updateStorage();
+        }
       },
       editDate(index){
         let newDate = prompt("Enter future due date in format <MM/DD/YYYY>");
@@ -69,9 +75,17 @@
       updateStorage(){
         window.localStorage.setItem("vue"+this.userName, JSON.stringify(this.tasks));
       },
-      deleteTask(){
+      deleteTask(index){
         console.log(index);
-      }
+        this.tasks.splice(index,1);
+        this.delete = false;
+        this.updateStorage();
+        },
+        setDelete(){
+          this.delete = true;
+          console.log("set");
+        }
+      
     }
   }
 </script>
@@ -103,8 +117,8 @@
     </tr>
     <tr v-for="(t, index) in tasks" class="itemrow"
        v-bind:style="t.progress < 33 ? 'background-color:  #FFCCCB;' : t.progress <67 ? 'background-color: #00FFFF;' : 'background-color: #90EE90;'">
-        <td id="task" height="50px" width="33.33%" @click="editTask(index)">   
-          <button className='delete-button' @click="deleteTask(index)">Delete </button>{{ t.task }} 
+        <td class="task-field" height="50px" width="33.33%" @click="editTask(index)">   
+          <button  class="delete-button" @click="setDelete">Delete </button>{{ t.task }} 
       </td>
       <td id="date" height="50px" width="33.33%" @click="editDate(index)">
         {{ t.date }}
@@ -171,6 +185,10 @@ td {
 .newtask:hover,
 .newtask:focus {
   background-color: #f082ac;
+}
+
+.task-field {
+  position: relative;
 }
 .delete-button {
   position: absolute;
