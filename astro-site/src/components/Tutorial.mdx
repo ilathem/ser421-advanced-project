@@ -559,7 +559,258 @@ Congratulations! You have now made a simple todo app in react!
 
 
 ## Svelte Tutorial
-
+<br></br>
 ## Vue Tutorial
+<br></br>
+1.  Create a file called vue-demo.vue and inside that file create three sections: script, template, and style. The script section will contain the 
+data and logic for our app. The template section will contain the html and the style section will contain most of the css. 
+```vue
+<script lang="js">  
 
+</script>  
+
+<template>  
+
+</template>
+
+<style>
+
+</style>
+```
+<br></br>
+2.  Next you will add the style to the style section of the document
+```css
+<style>
+    body {
+    background-color: #f0ffff;
+    }
+    table,
+    th,
+    td {
+    border: 1px solid black;
+    text-align: center;
+    }
+    .toprow {
+        background-color: #5F9EA0;
+        }
+        .itemrow {
+        background-color: #00FFFF;
+        }
+    #description {
+    text-align: center;
+    }
+    /* Borrowed from getcssscan.com -> Dribbble */
+    .newtask {
+    background-color: #a9a9a9;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Haas Grot Text R Web', 'Helvetica Neue', Helvetica, Arial,
+        sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    }
+    .newtask:hover,
+    .newtask:focus {
+    background-color: #f082ac;
+    }
+
+    .task-field {
+    position: relative;
+    }
+    .delete-button {
+    position: absolute;
+    left: 1em;
+    background-color: rgb(247, 60, 60);
+    padding: .75em;
+    top: 15%;
+    border: none;
+    outline: none;
+    }
+
+    .delete-button:hover {
+    cursor: pointer;
+    background-color: red;
+    color: white;
+    }
+</style>
+```
+<br></br>
+3. The next step is to add the html to the template section of the document. You will notice that although most
+of this looks like regular HTML there are a few differences. The first is the @click= part in the certain sections. This is similar to to the HTML onclick and tells vue
+ to call a particular function contained in the script section when that HTML element is clicked. @click can work on other HTML elements aside from buttons as 
+you will see when you scroll down and notice them in the table section as well.   
+You will see two things that don't look familiar in the tr section of the class itemrow. The first is the v-for. This operates like a normal for in statement
+in any other language although here you can also save the index of the item your are cycling through. The v-for command will dynamically create rows based on
+the size of the data (stored in the script section) and each row will have access to each element plus their index number.
+The next difference is the v-bind:style. This dynamically changes the style of a particular element based on a value. In this case it will change the background
+color of the entire row depending of how far along the progress of a task is towards complete.   
+You will notice that each td has a data in \{\{\}\}. This data is taken from the object in that came from the v-for and will display that object. You can \{\{\}\} to
+display any data stored in the data section of your vue component.  
+
+```vue
+<template>
+<div id="description">
+    <h1>To Do! Application</h1>
+    <p>
+      A demonstration of four Javascript client-side frameworks. This is Vue.
+    </p>
+  </div>
+  <br />
+  <button id="newtask" class="newtask" @click="createTask">
+    New Task
+  </button>
+  <br /><br /><br />
+  
+  <table style="width: 100%">
+    <tr class="toprow">
+      <td height="50px" width="33.33%">
+        <b>Task</b>
+      </td>
+      <td height="50px" width="33.33%">
+        <b>Due Date</b>
+      </td>
+      <td  height="50px" width="33.33%">
+        <b>Progress</b>
+      </td>
+    </tr>
+    <tr v-for="(t, index) in tasks" class="itemrow"
+       v-bind:style="t.progress < 33 ? 'background-color:  #FFCCCB;' : t.progress <67 ? 'background-color: #00FFFF;' : 'background-color: #90EE90;'">
+        <td class="task-field" height="50px" width="33.33%" @click="editTask(index)">   
+          <button  class="delete-button" @click="setDelete">Delete </button>{{ t.task }} 
+      </td>
+      <td id="date" height="50px" width="33.33%" @click="editDate(index)">
+        {{ t.date }}
+      </td>
+      <td id="progress" height="50px" width="33.33%" @click="editProgress(index)">
+        {{ t.progress }}
+      </td>
+    </tr>
+  </table>
+</template>
+  ```
+4. The last section is the script section. The export default around the entire script is there so that the script can be used by another component (in this case astro). The
+data portion returns the data that is used in this component. There are only 3 pieces of data right. Tasks is an array of data objects for the todo list. userName stores the
+name of the user that logs in so that their task information can be stored and retrieved from local storage. Delete is just a flag variable to ensure that two button clicks 
+don't happen at the same time.   
+The mounted() portion after data contains whatever should be executed when the page loads. In this case it calls a function that logs in the users.  
+Methods contain methods like any other javascript program. You will notice though that every method inside of script, as well as the data needs to be called with this. before
+it in order to be recognized. Not putting the this there will result in an error and the page won't run properly. 
+```javascript
+<script lang="js">
+  export default {
+    data() {
+      return {
+        tasks: [],
+        userName: "",
+        delete: false
+      }
+    },
+    mounted(){
+      this.logIn();
+    },
+    methods:{
+      createTask(){
+        console.log("CT");
+        let task = "";
+        while(task.length > 15 || task.length < 1 || this.tasks.includes(task)) {
+          task = prompt("Please enter a task name of at least one and up to 15 characters.", "");
+          }
+        let date = prompt("Enter future due date in format <MM/DD/YYYY>");
+        while (!Date.parse(date) || Date.parse(date) < Date.now()) {
+        date = prompt("Invalid date, Please use format <MM/DD/YYYY> in the future");
+        }
+        let progress = prompt("Enter completion percentage, value from 0 to 100");
+        while (progress < 0 || progress > 100) {
+          progress = prompt("Enter a value from 0 to 100");
+        }
+        let myObj = {"task": task, "date": date, "progress": progress};
+        this.tasks.push(myObj);
+        this.updateStorage();
+      },
+
+      editTask(index){
+        console.log(index);
+        if (this.delete){
+          this.deleteTask(index);
+        }
+        else{
+        let newTask = prompt("Please enter the new task name.")
+        while(newTask.length > 15 || newTask.length < 1 || this.tasks.includes(newTask)) {
+          newTask = prompt("Either that task already exists or is an invalid length. Enter again.", "");
+          }
+        this.tasks[index].task = newTask;  
+        this.updateStorage();
+        }
+      },
+      editDate(index){
+        let newDate = prompt("Enter future due date in format <MM/DD/YYYY>");
+        while (!Date.parse(newDate) || Date.parse(newDate) < Date.now()) {
+        date = prompt("Invalid date, Please use format <MM/DD/YYYY> in the future");
+        }
+        this.tasks[index].date = newDate;
+        this.updateStorage();
+      },
+      editProgress(index){
+        let newProgress = prompt("Enter completion percentage, value from 0 to 100");
+        while (newProgress < 0 || newProgress > 100) {
+          newProgress = prompt("Enter a value from 0 to 100");
+        }
+        this.tasks[index].progress = newProgress; 
+        this.updateStorage();
+      },
+      logIn(){
+        let tasks = null;
+        this.userName = prompt('Please Enter Your Name to Sign In');
+        console.log(this.userName);
+        if (window.localStorage.getItem("vue"+this.userName)) {
+          console.log(window.localStorage.getItem("vue"+this.userName));
+          console.log(JSON.parse(window.localStorage.getItem("vue"+this.userName)));
+          this.tasks = (JSON.parse(window.localStorage.getItem("vue"+this.userName)));
+           
+        }
+        console.log(this.tasks);
+      },
+      updateStorage(){
+        window.localStorage.setItem("vue"+this.userName, JSON.stringify(this.tasks));
+      },
+      deleteTask(index){
+        console.log(index);
+        this.tasks.splice(index,1);
+        this.delete = false;
+        this.updateStorage();
+        },
+        setDelete(){
+          this.delete = true;
+          console.log("set");
+        }
+      
+    }
+  }
+</script>
+```
+You have just created a simple todo app using the vue framework! Congratulations!
+<br></br>
 ## Angular Tutorial
