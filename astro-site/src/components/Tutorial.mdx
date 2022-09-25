@@ -10,7 +10,7 @@ npm create astro@latest
 3. After that, astro will ask you which template you would like to use. Templates provide the developer with a starting ground of files to make it easier for them to get started. For this tutorial, we will be selecting `Empty Project` for the template, so that we avoid having to remove any unecessary files.
 
 Using your arrow keys, navigate down to `Empty Project`, then press the enter key to select it.
-![select tempalte](/select-template.png)
+![select template](/select-template.png)
 After selecting the project, astro will start copying the project files. 
 4. When astro is done copying the project files, astro will ask if you would like to install npm dependencies. Press `y` to install them
 ![install npm dependencies](/npm-dep.png)
@@ -20,7 +20,7 @@ After selecting the project, astro will start copying the project files.
 
 Using your arrow keys, navigate down to `I prefer not to use TypeScript`, then press the enter key to select it.
 ![no ts](/typescript.png)
-Upon successful installation, you'll see `Ready for liftoff!` in green, and a series of instructions to start the development server:
+Upon successful installation, you will see `Ready for liftoff!` in green, and a series of instructions to start the development server:
 ![astro complete](/astro-complete.png)
 
 ## Astro Setup
@@ -37,7 +37,9 @@ Astro will automatically install the dependencies and will change the configurat
 ## Page Setup
 Astro uses what is called `file-based routing`, which means that each file in the `/pages` directory corresponds to a path in the browser. By default, `index.astro` will correspond to the `/` path.
 
-1. First, go back to the pages directory and create a folder for each framework component:
+Note: The terminal commands in this section are executed in Windows Powershell. 
+
+1. First, go to the pages directory and create a folder for each framework component:
 ```
 cd src/pages
 mkdir react
@@ -68,7 +70,7 @@ The `client:load` is called a *directive*, and basically just tells astro to loa
 ---
 import ReactDemo from './react-demo';
 ---
-<a href="/demo">Back to /demo</a>
+<a href="/">Back to /</a>
 <ReactDemo client:load />
 ```
 
@@ -77,7 +79,7 @@ import ReactDemo from './react-demo';
 ---
 import Vue from './vue-demo.vue'
 ---
-<a href="/demo">Back to /demo</a>
+<a href="/">Back to /</a>
 <Vue client:load />
 ```
 `pages/svelte/index.astro`
@@ -85,7 +87,7 @@ import Vue from './vue-demo.vue'
 ---
 import SvelteDemo from './svelte-demo.svelte'
 ---
-<a href="/demo">Back to /demo</a>
+<a href="/">Back to /</a>
 <SvelteDemo client:load />
 ```
 
@@ -93,15 +95,466 @@ import SvelteDemo from './svelte-demo.svelte'
 ```astro
 ---
 ---
-<a href="/">Back to home</a>
-<h1>Index of demo!</h1>
-<a href="/demo/react">React Demo</a> | 
-<a href="/demo/svelte">Svelte Demo</a> | 
-<a href="/demo/vue">Vue Demo</a>
+<h1>Home Page</h1>
+<a href="/react">React Demo</a> | 
+<a href="/svelte">Svelte Demo</a> | 
+<a href="/vue">Vue Demo</a>
 ```
 
 
 ## React Tutorial
+1. Inside the react folder, create a file called `todo.css` and paste in the following code:
+```css
+
+body {
+  background-color: #F0FFFF;
+}
+table, th, td {
+  border:1px solid black;
+  text-align: center;
+}
+.toprow {
+  background-color: #5F9EA0;
+}
+.itemrow {
+  background-color: #00FFFF;
+}
+/* Borrowed from getcssscan.com -> Dribbble */
+.newtask {
+  background-color: #A9A9A9;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.newtask:hover,
+.newtask:focus {
+  background-color: #F082AC;
+}
+
+.progress-1 {
+  background-color: #FFCCCB;
+}
+
+.progress-2 {
+  background-color: #FFFFE0;
+}
+
+.progress-3 {
+  background-color: #90EE90;
+}
+
+.name-field {
+  position: relative;
+}
+
+.delete-btn {
+  position: absolute;
+  left: 1em;
+  background-color: rgb(247, 60, 60);
+  padding: .75em;
+  top: 15%;
+  border: none;
+  outline: none;
+}
+
+.delete-btn:hover {
+  cursor: pointer;
+  background-color: red;
+  color: white;
+}
+```
+
+2. Next, add the imports and create the skeleton of the component:
+```jsx
+import { useState, useEffect } from 'react';
+import './todo.css'
+
+export default function ReactDemo() {
+  return (
+    <>
+      <h1>Hello World!</h1>
+    </>
+  )
+}
+```
+`useState` and `useEffect` are called *hooks*, they provide additional functionality that react provides. `useState` allows us to keep track of component state, and `useEffect` allows us to specify certain functions and cleanup functions every time the state changes, or on component mount and unmount (when it is loaded and unloaded from the screen).
+
+React uses functional components, and each component returns data to render to the screen. The format of the data is called *jsx*, or JavaScript XML. JSX is basically HTML with superpowers, you can also include JavaScript (in curly braces), and render user-defined components.
+
+3. Next, we are going to create the log in / sign up functionality.
+Alter the file so that it looks like this:
+```jsx
+import { useState, useEffect } from 'react';
+import './todo.css'
+
+export default function ReactDemo() {
+  const [user, setUser] = useState('');
+  const [todos, setTodos] = useState([]);
+
+  function logIn() {
+    let username = prompt('Please enter your name');
+    if (window.localStorage.getItem(`${username}-react`)) {
+      setTodos(JSON.parse(window.localStorage.getItem(`${username}-react`)));
+    }
+    setUser(username);
+  }
+
+  return (
+    <>
+      <h1 style={{ textAlign: 'center' }}>Todo! Application</h1>
+      <p style={{ textAlign: 'center' }}>
+        A demonstration of four Javascript client-side frameworks. This is React
+      </p>
+      <br />
+      <button className='newtask' onClick={user ? newTask : logIn}>
+        {user ? 'New Task' : 'Log in / Sign up'}
+      </button>
+    </>
+  )
+}
+```
+First, we are going to utilize the `useState` hook by keeping track of the current user.
+Whenever you use `useState`, you need to specify the initialization value. In this case, it is an empty string.
+`useState` returns an array, so we are going to use *array destructuring* to extract `user` and `setUser` out of that array.
+`user` will point to current user state, and `setUser` is a method that takes in the new user state.
+In addition, `todos` and `setTodos` will point to an array of todo items that the user creates and updates.
+
+Log in function breakdown
+```js
+let username = prompt('Please enter your name');
+```
+This will use the browser built in api to ask the user their name.
+After the user enters their name, it is stored in the username variable.
+```js
+if (window.localStorage.getItem(`${username}-react`)) {
+  setTodos(JSON.parse(window.localStorage.getItem(`${username}-react`)));
+}
+```
+After getting the username, it will check and see if storage for that user already exists.
+If the username is `kevin`, the key will be `kevin-react`. 
+If data for that user does exist, it will update the `todo` array to be the one already in local storage by parsing it from a string format into a JSON format.
+```js
+setUser(username);
+```
+Finally, it will set the username state to be equal to that username for the duration of the application runtime.
+
+JSX breakdown
+```jsx
+<>
+  <h1 style={{ textAlign: 'center' }}>Todo! Application</h1>
+  <p style={{ textAlign: 'center' }}>
+    A demonstration of four Javascript client-side frameworks. This is React
+  </p>
+  <br />
+  <button className='newtask' onClick={user ? newTask : logIn}>
+    {user ? 'New Task' : 'Log in / Sign up'}
+  </button>
+</>
+```
+React supports inline styling through the `style` tag, each style attribute needs to be a key-value pair.
+To add classes defined in css, use `className`, followed by `=` and the classes to be included, space delimited and wrapped in quotes.
+
+To register a click handler to an element, use `onClick`, followed by `=` and the function name, or an unamed function:
+```jsx
+onClick={() => {
+  console.log("clicked")
+}}
+// or
+onClick={handleClick}
+```
+In the example, we are using a ternary operater to determine if the user is logged in or not.
+If the user is logged in, the click handler will be the `newTask` function (not defined yet),
+and if they are not logged in, the click handler will be the `logIn` function.
+
+Similarily, if the use is logged in, the button will say `New Task`, but if they are not logged in,
+it will say `Log in / Sign up`
+
+4. Now that we have log in functionality handled, we can start creating tasks for each user.
+
+Start by defining what happens when the user clicks `New Task` upon sign up or log in:
+```js
+// When setup in this manner, useEffect will run the function provided
+// in the first argument every time the todos array changes.
+useEffect(() => {
+  // when todos array changes, update local storage by convering the 
+  // json to a string
+  window.localStorage.setItem(`${user}-react`, JSON.stringify(todos));
+}, [todos]);
+
+
+function addNewTodo(todo) {
+  // If this is the first todo to be created, just 
+  // set the todos to the input object.
+  if (!todos) setTodos(todo); 
+  // Otherwise, there are existing objects in the array
+  else {
+    /* Uses spread syntax (...) to include all other elements
+    in that array, then append the new todo item to the end. */
+    let todoArray = [...todos, todo];
+    /* Next, use array.sort to sort the todo items by date in ascending
+    order. The sort method takes in 2 element items (first and second), 
+    and sorts them based on the logic you provide. In this example,
+    a is one todo object, and b is another todo object. To sort it, 
+    we convert each todo object to a number by extacting it's date,
+    converting it a time (getTime returns the number of milliseconds
+    since the ECMAScript epoch, a universal time), and comparing those 
+    integers by subtracting them. If the result is positive, then
+    todo a's date is greater than b's date, so a needs to 
+    be sorted after b, and if it's negative, todo a's date is less
+    then b's date, so a needs to be before b. */
+    let sortedTodos = todoArray.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+    // After sorting the todos, update state.
+    setTodos(sortedTodos);
+  }
+}
+
+function newTask() {
+  // Ask the user for a task name
+  let title = prompt('Enter the task name');
+  /* Create an array of just task names using array.map method
+   Map will iterate over an array and will perform 
+   a function on each element, and will create a 
+   new array which consist of what that function returns
+   for each element.
+   For this implementation, iterate over the array and
+   for each element, return just the title of that element. */
+  let titlesArray = todos.map((todo) => todo.title);
+  // If the title already exists, ask the user for another name
+  while (titlesArray.includes(title)) {
+    title = prompt('That task already exists! Enter another name');
+  }
+  // Ask the user for a due date
+  let date = prompt('Enter future due date in format <MM/DD/YYYY>');
+  // If the format fo rthe date is wrong, 
+  // or if the date is not in the future,
+  // ask them for another date
+  while (!Date.parse(date) || Date.parse(date) < Date.now()) {
+    date = prompt('Invalid syntax, use format <MM/DD/YYYY> in the future');
+  }
+  // Ask the user for a completion percent of that task
+  let percent = prompt('Enter completion percentage, value from 0 to 100');
+  // If the percent isn't valid, ask the user for another 
+  while (percent < 0 || percent > 100) {
+    percent = prompt('Enter a value from 0 to 100');
+  }
+  // Add the todo
+  /* 
+  This uses object destructuring, and is the exact same as:
+  addNewTodo({
+    title: title,
+    date: date,
+    percent: percent
+  })
+  
+  */
+  addNewTodo({ title, date, percent });
+}
+```
+5. Now that we can add tasks, we can add more display logic in the `return` section to 
+dynamically display the todos in a table.
+```jsx
+return (
+  <>
+    <h1 style={{ textAlign: 'center' }}>Todo! Application</h1>
+    <p style={{ textAlign: 'center' }}>
+      A demonstration of four Javascript client-side frameworks. This is React
+    </p>
+    <br />
+    <button className='newtask' onClick={user ? newTask : logIn}>
+      {user ? 'New Task' : 'Log in / Sign up'}
+    </button>
+    <br />
+    <br />
+    <br />
+    {user && (
+      <table style={{ width: '100%' }}>
+        <thead>
+          <tr className='toprow'>
+            <td style={{ height: '50px', width: '33.33%' }}>
+              <b>Task</b>
+            </td>
+            <td style={{ height: '50px', width: '33.33%' }}>
+              <b>Due Date</b>
+            </td>
+            <td style={{ height: '50px', width: '33.33%' }}>
+              <b>Progress</b>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+        {/* 
+        Below is the dynamic part. todos.map will go over each element 
+        in the todos array, and for each element, return a new table
+        row containing information for that todo, as well as click handlers
+        to change each part.
+        To access javascript inside of jsx, we simply need to wrap it in 
+        curly braces { }
+        */}
+          {todos.map((todo) => {
+            return (
+              <tr className='itemrow' key={todo.title}>
+                <td
+                  style={{ height: '50px', width: '33.33%' }}
+                  className='name-field'
+                  onClick={() => editTask(todo.title)}
+                >
+                  <button className='delete-btn' onClick={() => {
+                    console.log("clicked delete")
+                    }}>
+                    Delete</button>
+                  {todo.title}
+                </td>
+                <td
+                  style={{ height: '50px', width: '33.33%' }}
+                  onClick={() => editDate(todo.title)}
+                >
+                  {todo.date}
+                </td>
+                {/* 
+                Below we have some conditional rendering logic in the form 
+                of tenary operators and template literals. If the todo 
+                percent is less than 33, then assign the css class 
+                `progress-1`, else, if it is less than 67,
+                assign `progress-2`. Else, assign `progress-3`
+                */}
+                <td
+                  style={{ height: '50px', width: '33.33%' }}
+                  className={`progress-${
+                    todo.percent < 33 ? '1' : todo.percent < 67 ? '2' : '3'
+                  }`}
+                  onClick={() => editPercent(todo.title)}
+                >
+                  {todo.percent}%
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    )}
+  </>
+);
+```
+6. After adding the jsx, we can add functions to make it editable.
+```js
+function editTask(todoTitle) {
+  // First, we need to grab the event that is fired to see where it came from.
+  // If the tag that fired the event is a TD (a table cell), then
+  // we want to edit the name of the task.
+  if (event.target.tagName === 'TD') {
+    // Ask the user for a title / name
+    let newTitle = prompt('What is the new title?');
+    // Same logic here as creating a new task...
+    let titlesArray = todos.map((todo) => todo.title);
+    while (titlesArray.includes(newTitle)) {
+      newTitle = prompt('That name already exists! Enter another name');
+    }
+    // Go through the array
+    let updatedArray = todos.map((todo) => {
+      // If the current todo title matches the one we want to change,
+      // return a new object which consists of the same data as the
+      // current object, except the title is now the new name.
+      if (todo.title === todoTitle) {
+        return {
+          title: newTitle,
+          date: todo.date,
+          percent: todo.percent,
+        };
+      } else {
+        // If the current todo does not match our targert, 
+        // simply return it unchanged and keep going
+        return todo;
+      }
+    });
+    setTodos(updatedArray);
+    // Else, if the tag that fired the event is a BUTTON, then
+    // we know that we want to delete that task.
+  } else if (event.target.tagName === 'BUTTON') {
+    deleteTask(todoTitle)
+  }
+}
+
+function editDate(todoTitle) {
+  // console.log("running edit date")
+  let date = prompt('Enter future due date in format <MM/DD/YYYY>');
+  while (!Date.parse(date) || Date.parse(date) < Date.now()) {
+    date = prompt('Invalid syntax, use format <MM/DD/YYYY> in the future');
+  }
+  let updatedArray = todos.map((todo) => {
+    if (todo.title === todoTitle) {
+      return {
+        title: todo.title,
+        date: date,
+        percent: todo.percent,
+      };
+    } else {
+      return todo;
+    }
+  });
+  let sortedTodos = updatedArray.sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+  setTodos(sortedTodos);
+}
+
+function editPercent(todoTitle) {
+  let percent = prompt('Enter completion percentage, value from 0 to 100');
+  while (percent < 0 || percent > 100) {
+    percent = prompt('Enter a value from 0 to 100');
+  }
+  let updatedArray = todos.map((todo) => {
+    if (todo.title === todoTitle) {
+      return {
+        title: todo.title,
+        date: todo.date,
+        percent: percent,
+      };
+    } else {
+      return todo;
+    }
+  });
+  setTodos(updatedArray);
+}
+
+function deleteTask(todoTitle) {
+  // create new array, which contains all elements of todos
+  // where the title does not equal the supplied title
+  let updatedArray = todos.filter((todo) => todo.title !== todoTitle);
+  setTodos(updatedArray);
+}
+```
+Congratulations! You have now made a simple todo app in react!
+
+
+
 
 
 
