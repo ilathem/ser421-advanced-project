@@ -9,6 +9,7 @@ export default function ReactDemo() {
 
 
   // for dev purposes: comment out when done
+
   // useEffect(() => {
   //   let username = 'test';
   //   setTodos(JSON.parse(window.localStorage.getItem(`${username}-react`)));
@@ -65,10 +66,9 @@ export default function ReactDemo() {
   }
 
   function editTask(todoTitle) {
-
-    console.log(event);
+    // console.log(event);
     if (event.target.tagName === 'TD') {
-      console.log("is a td")
+      // console.log("is a td")
       let newTitle = prompt('What is the new title?');
       let titlesArray = todos.map((todo) => todo.title);
       while (titlesArray.includes(newTitle)) {
@@ -88,7 +88,7 @@ export default function ReactDemo() {
       setTodos(updatedArray);
       // console.log('running edit task')
     } else if (event.target.tagName === 'BUTTON') {
-      console.log("is a button")
+      // console.log("is a button")
       deleteTask(todoTitle)
     }
   }
