@@ -557,7 +557,8 @@ Congratulations! You have now made a simple todo app in react!
 
 ## Svelte Tutorial
 <br></br>
-Svelte (the word, not the name) is defined as "slender and elegant," and it's very easy to see why once you've learned a bit about this framework. Svelte is intended to be a barebones framework for Javascript to make implementation as easy as possible. All you need to do to run the Svelte application is:
+Svelte (the word, not the name) is defined as slender and elegant, and it is very easy to see why once you have learned a bit about this framework.
+Svelte is intended to be a barebones framework for Javascript to make implementation as easy as possible. All you need to do to run the Svelte application is:
 1. Navigate to this website: https://svelte.dev/examples/hello-world#hello-world
 
 2. Paste in the following code:
@@ -1180,7 +1181,7 @@ data and logic for our app. The template section will contain the html and the s
 of this looks like regular HTML there are a few differences. The first is the @click= part in the certain sections. This is similar to to the HTML onclick and tells vue
  to call a particular function contained in the script section when that HTML element is clicked. @click can work on other HTML elements aside from buttons as 
 you will see when you scroll down and notice them in the table section as well.   
-You will see two things that don't look familiar in the tr section of the class itemrow. The first is the v-for. This operates like a normal for in statement
+You will see two things that do not look familiar in the tr section of the class itemrow. The first is the v-for. This operates like a normal for in statement
 in any other language although here you can also save the index of the item your are cycling through. The v-for command will dynamically create rows based on
 the size of the data (stored in the script section) and each row will have access to each element plus their index number.
 The next difference is the v-bind:style. This dynamically changes the style of a particular element based on a value. In this case it will change the background
@@ -1232,10 +1233,10 @@ display any data stored in the data section of your vue component.
 4. The last section is the script section. The export default around the entire script is there so that the script can be used by another component (in this case astro). The
 data portion returns the data that is used in this component. There are only 3 pieces of data right. Tasks is an array of data objects for the todo list. userName stores the
 name of the user that logs in so that their task information can be stored and retrieved from local storage. Delete is just a flag variable to ensure that two button clicks 
-don't happen at the same time.   
+do not happen at the same time.   
 The mounted() portion after data contains whatever should be executed when the page loads. In this case it calls a function that logs in the users.  
 Methods contain methods like any other javascript program. You will notice though that every method inside of script, as well as the data needs to be called with this. before
-it in order to be recognized. Not putting the this there will result in an error and the page won't run properly. 
+it in order to be recognized. Not putting the this there will result in an error and the page will not run properly. 
 ```javascript
 <script lang="js">
   export default {
@@ -1369,7 +1370,7 @@ Your new Angular project will have the following structure
 
 ### Step 2: Add basic application data models
 
-There for this demo, there is one css file that can be added to `./src/styles.css`.  There are additionally two TypeScript classese for the User and Task classes required for this implementation's data model. 
+There for this demo, there is one css file that can be added to `./src/styles.css`.  There are additionally two TypeScript classese for the User and Task classes required for this implementation data model. 
 Place these classes in a `./src/lib` directory. Place the css in the `app/styles.css` file. These classes will not be included directly in this tutorial.  The classes can be found at `github.com/chadNoliver/to-do`. Their API is intended to be self-describing and their inclusion directly in this tutorial should not be necessary, as the primary focus of this tutorial is to learn how to utilize Angular.  
 
 ### Step 3: Utilize Angular Components and Directives to Make Application Dynamic
@@ -1435,7 +1436,7 @@ export class AppComponent {
 ```
 3.2  Next we will create the HTML layout for this component.  This Html template will be called in every place that the `<app-component>` HTML tag is called. 
 
-Notice the `*ngFor` directive.  This Angular Directive will create a new table row for each Task object in the in user.tasks array of our data model.  This is Angular's way of dynamicaly executing DOM manipulation.
+Notice the `*ngFor` directive.  This Angular Directive will create a new table row for each Task object in the in user.tasks array of our data model.  This is the Angular way of dynamicaly executing DOM manipulation.
 
 ```
 //'src/app/app.component.html'//
@@ -1470,7 +1471,7 @@ In this application, tasks will be displayed as rows in an html table.  In order
 ### Step 4 Create new Angular component for to-do Tasks.
 
 4.1  Generate new component.ts file.  
-Run `ng g c task-row`.  This will add to your project tree's `./src/app` directory a new directory for the `task-row` component.  
+Run `ng g c task-row`.  This will add to your project tree `./src/app` directory a new directory for the `task-row` component.  
 Edit the generated `task-row.component.ts` file as follows:
 Notice that this will incorporate the `tr[app-task-row]` selector.  This selector is called with the `*ngFor` Directive in order to dynamically generate this component.
 

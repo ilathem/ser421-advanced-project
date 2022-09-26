@@ -25,6 +25,24 @@ can begin to happen on the client-side of the browser. A lot of this was through
 The DOM, which was created in the late 1990s, is an interface that created a tree-like structure of elements out of the HTML that came from the server. The new 
 client-side frameworks alowed manipulation of these elements in the browser without having to reload or refresh the page from the server. In 2006, JQuery was released and it quickly became very popular given the new features it introduced. Abstraction between components had traditionally been an issue that made it difficult to program web pages and particularly difficult to create large web pages involving extended functionality. JQuery simplified the process for manipulating the DOM, making web sites easier to program and the necessary code less verbose. Around 2010, the earliest Javascript frameworks, including Angularjs and Knockout, began to be released. More frameworks would follow, including Vue in 2014 and Svelte in 2016. Each of these frameworks attempted to solve well-known problems in web development and to make it progressively easier to develop large scale web applications with smaller investment. There are now many tens of Javascript frameworks available to developers, with Angular, React and Vue being among the most popular.
 
- 
 
+## Future Promise
 
+Nowadays, separating front-end and back-end into separate frameworks and abstraction layers are a thing of the past, as monorepos and full-stack frameworks are all the rage now. 
+Each front-end framework has a full stack alternative (React-Next, Vue-Nuxt, Svelte-SvelteKit) in which both the client and server side are defined in the same scope. 
+These allow smaller team size, faster development, and lower cost, with the tradeoff of requiring software engineers with both front-end and back-end experience. 
+Also, these can take advantage of Server-Side-Rendering (SSR), Client-Side-Rendering (CSR), Static Site Generation (SSG), and Incremental Static Generation (ISR) to
+find the best rendering strategy for the client.
+While there is a bump in the learning curve for these full-stack frameworks, they ultimately lead to better front to back integration and a better developer experience.
+
+In addition, another architecture pattern that we may see in the future is called **island architecture**. In order to make webpages responsive, they need to have JavaScript, however,
+the more javascript they have, the slower they perform. Frameworks that use island architecture solve this by shipping zero javascript to the client by defalt, the developer has to 
+explicitly state when a javascript component will load. As a result, static elements such as text will load very fast, and interactive elements will load as needed. 
+
+To continue the thread of mitigating javascript sent to the browser, another relatively new javascript framework is Quik. This framework avoids javascript as much as possible
+in order to reduce the time to first load of the app drastically. 
+
+## Relevant Standards
+
+For basically all professional web development, programmers will use TypeScript instead of JavaScript. The typesafety that it provides allows developers 
+to catch runtime errors in compile time, reducing cost and time of development and debugging.
