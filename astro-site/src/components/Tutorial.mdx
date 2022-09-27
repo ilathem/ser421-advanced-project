@@ -1379,8 +1379,10 @@ This application will be composed of two Angular Components and two Angular Dire
 
 
 ```
-//'src/app/app-component.ts'//
+// src/app/app.component.ts
+
 import { Component } from '@angular/core';
+
 import { Task } from "../lib/task";
 import { User } from "../lib/user";
 @Component({
@@ -1388,23 +1390,25 @@ import { User } from "../lib/user";
   templateUrl: './app.component.html'
 })
 
-export class AppComponent {
+export class AppComponent {                       
+                                                          // instantiate objects to be modified and sent to child
   user:User = new User();
   tasks: Task[] = new Array<Task>;
-  userList:User[] =new Array<User>;
+  userList: User[] =new Array<User>;
   newTask(){
-    let task:Task = new Task();
+                                                          // newTask as called from .html file
+    let task:Task = new Task();                           
     this.user.tasks.push(task);
-    this.saveUsers();
+    this.saveUsersComp();
   }
      
   ngOnInit(){
-    this.user = new User();
-    this.loadUsers();
-    this.findUser();
+    this.loadUsersComp();
+    this.findUserComp();
+    this.saveUsersComp();
   }
 
-  findUser(){
+  findUserComp(){
     for (let i = 0;i<this.userList.length;i++){
       if (this.userList[i].name==this.user.name){
           this.user = this.userList[i];
@@ -1414,24 +1418,27 @@ export class AppComponent {
     this.userList.push(this.user);
     return;
   }
-  
-  loadUsers(){
+
+  loadUsersComp(){
     console.log("loading users");
-    
     let loadedUserList = window.localStorage.getItem('userList')||"[]";
-    if(JSON.parse(loadedUserList).length>0){
+    if (loadedUserList =='undefined'){loadedUserList='[]'}
+    let parsed = JSON.parse(loadedUserList);
+    if(parsed.length>0 && (parsed!=undefined) && (parsed!="undefined")){
       this.userList = JSON.parse(loadedUserList);
     }
     console.log(loadedUserList); 
   }
 
-  saveUsers(){
+  saveUsersComp(){
     console.log("saving users");
     let stringifiedUserList = JSON.stringify(this.userList);
     console.log(stringifiedUserList);
     window.localStorage.setItem("userList", stringifiedUserList);
   }
+
 }
+
 
 ```
 3.2  Next we will create the HTML layout for this component.  This Html template will be called in every place that the `<app-component>` HTML tag is called. 
@@ -1439,11 +1446,13 @@ export class AppComponent {
 Notice the `*ngFor` directive.  This Angular Directive will create a new table row for each Task object in the in user.tasks array of our data model.  This is the Angular way of dynamicaly executing DOM manipulation.
 
 ```
-//'src/app/app.component.html'//
+<!-- src/app/app.component.html -->
+
 <body>
         <div style="text-align:center;"></div>
         <br>
-        <button id="newtask" (click)="newTask()">New Task</button>
+                                                                     <!-- add (click) directive to execute newTask() -->
+        <button id="newtask" (click)="newTask()">New Task</button> 
         <br><br><br>
         <table style="width:100%">
             <tr class="toprow">
@@ -1457,11 +1466,17 @@ Notice the `*ngFor` directive.  This Angular Directive will create a new table r
                     <b>Progress</b>
                 </td>
             </tr>
-            <tr class="itemrow" app-task-row *ngFor="let task of user.tasks;
-                index as i; trackBy: taskTrackByMethod"
-                [task]="task" clickable></tr>
+                                                   <!-- Utilize *ngFor directive to dynamically allocate task-row components -->
+            <tr class="itemrow" app-task-row
+                *ngFor="let task of user.tasks"                     
+                [task]="task" 
+                [(userList)]="userList"
+                (saveUsersCompEmit) = "saveUsersComp()"
+                ></tr>
+                                                   <!-- bind task to task and save upon data change with (change) directive -->
           </table>
-    </body>
+  </body>
+
 ```
 
 
@@ -1478,19 +1493,44 @@ Notice that this will incorporate the `tr[app-task-row]` selector.  This selecto
 ```
 //'src/app/task-row/task-row.component.ts'//
 
-import { Component, OnInit, Input } from '@angular/core';
-import { Task } from '../../lib/task';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Task, setPctFunc, setNameFunc, setDateFunc} from '../../lib/task';
+import { User, saveUsersFunc } from '../../lib/user';
+
 @Component({
   selector: 'tr[app-task-row]',
   templateUrl: './task-row.component.html',
 })
 
-export class TaskRowComponent implements OnInit {
-@Input() task:Task;
-  constructor() {}
+export class TaskRowComponent implements OnInit {  
+@Input() task: Task;                              //Uses @Input directive to access task from parent          
+@Input() userList:User[];                         //Uses @Input directive to access userList form parent
+@Output() taskChange = new EventEmitter<Task>();  //Uses @Output directive to emit data to parent upon change
+@Output() userListChange = new EventEmitter<User[]>();  //Uses @Output directive to emit data to parent upon change
+@Output("saveUsersCompEmit") saveUsersCompEmit: EventEmitter<any> = new EventEmitter();
   ngOnInit(): void {
   }
+  sendData(){
+    this.taskChange.emit(this.task);  
+    this.userListChange.emit(this.userList);
+    this.saveUsersCompEmit.emit();
+    console.log("Sending data:" + this.task);
+  }
+  setPctComp(){
+    setPctFunc(this.task);
+  }
+  setNameComp(){
+    setNameFunc(this.task);
+  }
+  setDateComp(){
+    setDateFunc(this.task);
+  }
+  saveUsersComp(){
+    saveUsersFunc(this.userList);
+  }
+
 }
+
 ```
 
 
@@ -1498,24 +1538,25 @@ export class TaskRowComponent implements OnInit {
 This is the HTML template will be inserted into the DOM upon each call from the Directive `ngFor` in the app/component.  Notice that `{{}}` brackets can be used in order to access data dynamically from the data model.  Also notice the new directive [ngClass] that will dynamically change the style of our templage based on the value of an object from our data model.  Finally, notice that `(click)` can be used in order to call methods from our data model from user interaction with this html template.
 
 ```
-//'src/app/task-row/task-row.component.html'//
-
-<td [ngClass]="{'green': task.pct>75,
-    'red': task.pct<25}" (click)="task.setName()">
-
+<!-- src/app/task-row/task-row-component.html -->
+                                                                    <!-- Uses the ngClass Directive for dynamic color binding --> 
+  <td [ngClass]="{'green': task.pct>75,'red': task.pct<25}"         
+      (click)="setNameComp();sendData();saveUsersComp()">                                                              
+                                                                    <!-- Uses (click) directive to balance state -->
       {{task.name}}
-
+                                                                    <!-- Uses {{}} syntax to access data model -->
   </td>
-      
-  <td [ngClass]="{'green': task.pct>75,
-                  'red': task.pct<25}" (click)="task.setDate()">
+                                                                    <!-- Repeat for date data --> 
+  <td  [ngClass]="{'green': task.pct>75, 'red': task.pct<25}" 
+      (click)="setDateComp();sendData();saveUsersComp()">
 
       {{task.date}}
 
   </td>
+                                                                    <!-- Repeat for percent data -->
+   <td [ngClass]="{'green': this.task.pct>75,'red': task.pct<25}" 
+      (click)="setPctComp();sendData();saveUsersComp()">
 
-   <td [ngClass]="{'green': task.pct>75,
-                  'red': task.pct<25}" (click)="task.setPct()">
     {{task.pct}}
 
   </td>
