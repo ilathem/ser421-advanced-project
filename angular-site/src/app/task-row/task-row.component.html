@@ -1,0 +1,22 @@
+<!-- task-row-component.html -->
+                                                                    <!-- Uses the ngClass Directive for dynamic color binding --> 
+  <td [ngClass]="{'green': task.pct>75,'red': task.pct<25}"         
+      (click)="setNameComp();sendData();saveUsersComp()">                                                              
+                                                                    <!-- Uses (click) directive to balance state -->
+      {{task.name}}
+                                                                    <!-- Uses {{}} syntax to access data model -->
+  </td>
+                                                                    <!-- Repeat for date data --> 
+  <td  [ngClass]="{'green': task.pct>75, 'red': task.pct<25}" 
+      (click)="setDateComp();sendData();saveUsersComp()">
+
+      {{task.date}}
+
+  </td>
+                                                                    <!-- Repeat for percent data -->
+   <td [ngClass]="{'green': this.task.pct>75,'red': task.pct<25}" 
+      (click)="setPctComp();sendData();saveUsersComp()">
+
+    {{task.pct}}
+
+  </td>

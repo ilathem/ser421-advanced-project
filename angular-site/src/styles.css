@@ -1,0 +1,61 @@
+body {
+        background-color: #F0FFFF;
+    }
+    table, th, td {
+      border:1px solid black;
+      text-align: center;
+    }
+    td{
+    height:50px;
+    width:33.33%;
+    }
+    .red{
+    background-color: red; 
+    }
+     .green{
+    background-color: green; 
+    }
+     .toprow {
+      background-color: #5F9EA0;
+    }
+    .itemrow {
+      background-color: #00FFFF;
+    }
+    /* Borrowed from getcssscan.com -> Dribbble */
+    .newtask {
+    background-color: #A9A9A9;
+    border-radius: 8px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 40px;
+    line-height: 20px;
+    list-style: none;
+    margin: 0;
+    outline: none;
+    padding: 10px 16px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: color 100ms;
+    vertical-align: baseline;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    }
+
+    .newtask:hover,
+    .newtask:focus {
+    background-color: #F082AC;
+    }
+
